@@ -47,7 +47,7 @@ From: opensciencegrid/osgvo-ubuntu-20.04:latest
     rm Miniconda3-latest-Linux-x86_64.sh
     # install conda components - add the packages you need here
     . /opt/conda/etc/profile.d/conda.sh
-    conda create -y -n "subsolar" python=3.11
+    conda create -y -n "myenv" python=3.11
     conda activate myenv
     # Install pycbc and other dependencies
     git clone https://github.com/gwastro/pycbc.git
