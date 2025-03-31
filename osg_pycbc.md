@@ -8,20 +8,20 @@ bash Miniconda3-latest-Linux-x86_64.sh
 rm Miniconda3-latest-Linux-x86_64.sh
 ```
 
-Check the version of singularity used for PyCBC via
+If you are using the pre-defined singularity images then first check the version of singularity used for PyCBC via
 ```
 /cvmfs/singularity.opensciencegrid.org/pycbc/ 
 ```
-Download the PyCBC version with tag that exists in the above list
+and download the PyCBC version with tag that exists in the above list
 
 ```
 git clone https://github.com/gwastro/pycbc.git
 git check [tag_version]
 ```
 
-### Generate a image.def 
+### Generate image.def 
 
-To generate a `image.def` from scratch, follow the instructions given at [LINK](https://portal.osg-htc.org/documentation/htc_workloads/using_software/containers-singularity/)
+If you want to create your own singularity container then first generate `image.def` from scratch, follow the instructions given at [LINK](https://portal.osg-htc.org/documentation/htc_workloads/using_software/containers-singularity/)
 
 For example:
 ```
@@ -49,11 +49,11 @@ From: opensciencegrid/osgvo-ubuntu-20.04:latest
     . /opt/conda/etc/profile.d/conda.sh
     conda create -y -n "myenv" python=3.11
     conda activate myenv
+
     # Install pycbc and other dependencies
     git clone https://github.com/gwastro/pycbc.git
     cd pycbc
     pip install .
-    pip install numpy==2.1.3
     pip install -r requirements.txt
     pip install mkl
     conda update -n base -c defaults conda
@@ -62,16 +62,13 @@ From: opensciencegrid/osgvo-ubuntu-20.04:latest
     conda install  -y -n "myenv"  -c conda-forge gitpython
     conda install  -y -n "myenv"  -c conda-forge gsl pygsl_lite
     
-    # Install Pegasus GPG key
-    curl https://download.pegasus.isi.edu/pegasus/gpg.txt | apt-key add -
-    # Add Pegasus repository to sources list
-    echo 'deb https://download.pegasus.isi.edu/pegasus/ubuntu focal main' > /etc/apt/sources.list.d/pegasus.list
 %environment
     # set up environment for when using the container
     . /opt/conda/etc/profile.d/conda.sh
     conda activate myenv
      
 ```
+The above example will allow you to generate a conda environment inside the signularity container. This is useful because it gives you freedom to install any user-defined packages for workflow development purposes.
 
 ### Generate a signularity container 
 ```
